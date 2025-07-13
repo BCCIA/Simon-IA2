@@ -415,12 +415,13 @@ img {
 }
 
 #fallback-video {
-  width: 90%;
-  max-width: 1000px;
-  height: auto;
-  border-radius: 12px;
+  width: auto;
+  max-width: 95%;
+  max-height: 90vh; /* permite que use casi toda la altura visible */
+  border-radius: 8px;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
+
 
 #close-video-btn {
   position: absolute;
