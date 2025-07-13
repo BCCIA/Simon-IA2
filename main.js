@@ -23,57 +23,31 @@ if (!accesoPermitido()) {
 }
 
 // ----------------- SEGURIDAD Y NAVEGACIÓN -----------------
-
 // Deshabilitar clic derecho
-document.addEventListener("contextmenu", (e) => e.preventDefault());
+document.addEventListener("contextmenu", e => e.preventDefault());
 
-function ctrlShiftKey(e, keyCode) {
-  return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
+// Deshabilitar teclas de desarrollo
+function ctrlShiftKey(e, key) {
+  return e.ctrlKey && e.shiftKey && e.keyCode === key.charCodeAt(0);
 }
 
-document.onkeydown = (e) => {
+document.onkeydown = e => {
   if (
-    e.keyCode === 123 ||
-    ctrlShiftKey(e, "I") ||
-    ctrlShiftKey(e, "J") ||
-    ctrlShiftKey(e, "C") ||
-    (e.ctrlKey && e.keyCode === "U".charCodeAt(0))
-  )
-    return false;
+    e.keyCode === 123 ||                // F12
+    ctrlShiftKey(e, "I") ||            // Ctrl+Shift+I
+    ctrlShiftKey(e, "J") ||            // Ctrl+Shift+J
+    ctrlShiftKey(e, "C") ||            // Ctrl+Shift+C
+    (e.ctrlKey && e.keyCode === "U".charCodeAt(0)) // Ctrl+U
+  ) return false;
 };
 
+// Toggle menú responsive
 const showMenu = (toggleId, navId) => {
   const toggle = document.getElementById(toggleId),
     nav = document.getElementById(navId);
-
   if (toggle && nav) toggle.addEventListener("click", () => nav.classList.toggle("show"));
 };
-
 showMenu("nav-toggle", "nav-menu");
-
-// ----------------- CHAT D-ID -----------------
-class DIDChat {
-  constructor(containerId) {
-    this.container = document.getElementById(containerId);
-    this.chatUrl =
-      "https://studio.d-id.com/agents/share?id=agt_xQ9DjGPl&utm_source=copy&key=WVhWMGFEQjhOamRsT0RObVpqQTVZbU5tTXpSa1pEVmlZbVpsWVRNM09uQm5aR2xhYVdOSk1rdHFlVlpyYmpCdFRHaFRVQT09";
-    this.init();
-  }
-  init() {
-    const wrapper = document.createElement("div");
-    wrapper.className = "iframe-wrapper";
-    const iframe = document.createElement("iframe");
-    iframe.className = "did-chat-iframe fade-in";
-    iframe.src = this.chatUrl;
-    iframe.allow = "camera;microphone;clipboard-write";
-    wrapper.appendChild(iframe);
-    this.container.appendChild(wrapper);
-  }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  new DIDChat("chat-container");
-});
 
 // ----------------- GSAP ANIMACIONES -----------------
 gsap.to(".first", 1.5, { delay: 0.5, top: "-100%", ease: Expo.easeInOut });
@@ -103,7 +77,6 @@ function iniciarRefresco() {
     });
     document.body.appendChild(message);
   }
-
   function startRefreshSequence() {
     cancelRefresh = false;
     message.style.display = "block";
@@ -111,12 +84,12 @@ function iniciarRefresco() {
       cancelRefresh = true;
       message.style.display = "none";
       clearTimeout(refreshTimeout);
-      document.removeEventListener('click', cancelAction);
-      document.removeEventListener('touchstart', cancelAction);
+      document.removeEventListener("click", cancelAction);
+      document.removeEventListener("touchstart", cancelAction);
       setTimeout(startRefreshSequence, 300000);
     }
-    document.addEventListener('click', cancelAction);
-    document.addEventListener('touchstart', cancelAction);
+    document.addEventListener("click", cancelAction);
+    document.addEventListener("touchstart", cancelAction);
     refreshTimeout = setTimeout(() => { if (!cancelRefresh) location.reload(); }, 5000);
   }
   setTimeout(startRefreshSequence, 300000);
@@ -124,18 +97,18 @@ function iniciarRefresco() {
 window.addEventListener("DOMContentLoaded", () => {
   const refreshBtn = document.getElementById("refresh-btn");
   if (refreshBtn) refreshBtn.addEventListener("click", () => location.reload());
-});
 
-// ----------------- FALLBACK VÍDEO AL PULSAR EL BOTÓN -----------------
-window.addEventListener("DOMContentLoaded", () => {
+  // FALLBACK VÍDEO AL PULSAR EL BOTÓN
   const videoBtn = document.getElementById("video-btn");
   const fallbackVideo = document.getElementById("fallback-video");
-  videoBtn.addEventListener("click", () => {
-    fallbackVideo.style.display = "block";
-    fallbackVideo.play();
-  });
+  if (videoBtn && fallbackVideo) {
+    videoBtn.addEventListener("click", () => {
+      fallbackVideo.style.display = "block";
+      fallbackVideo.play();
+    });
+  }
 
-  // ----------------- CERRAR AGENTE EMBEBIDO -----------------
+  // CERRAR AGENTE EMBEBIDO
   const closeBtn = document.getElementById("close-agent-btn");
   const agentContainer = document.getElementById("agent-container");
   if (closeBtn && agentContainer) {
