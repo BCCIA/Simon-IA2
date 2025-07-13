@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gema</title>
+    <title>Simón</title>
     <link rel="shortcut icon" href="./chat.png" />
     <link rel="stylesheet" href="style.css" />
 
-    <!-- Estilos para el botón de vídeo -->
+    <!-- Estilos para los botones -->
     <style>
+      /* Botón de vídeo */
       #video-btn {
         position: fixed;
         top: 20px;
@@ -23,6 +24,24 @@
         transition: opacity 0.3s ease, transform 0.3s ease;
       }
       #video-btn:hover {
+        opacity: 1;
+        transform: rotate(20deg);
+      }
+      /* Botón de recargar */
+      #refresh-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        font-size: 36px;
+        color: white;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 9999;
+        opacity: 0.6;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      #refresh-btn:hover {
         opacity: 1;
         transform: rotate(20deg);
       }
@@ -54,27 +73,35 @@
           <span class="home-pressent anime-text">Mi nombre es</span>
           <h1 class="home-title anime-text">Simón.</h1>
         </div>
-        <div class="home-img" style="position: relative;">
-          <div id="chat-container" class="fade-in"></div>
-
-          <!-- Contenedor del agente con botón de cerrar -->
-          <div id="agent-container" style="position: relative;">
+        <div class="home-img">
+          <!-- Contenedor unificado para el agente -->
+          <div id="agent-container" class="fade-in" style="position: relative; width: 100%; height: 100%;">
             <!-- Botón de cerrar -->
-            <ion-icon
-              id="close-agent-btn"
-              name="close-circle-outline"
-              title="Cerrar agente">
-            </ion-icon>
-
-            <!-- Agente D-ID Embebido -->
-            <script
-              type="module"
-              src="https://agent.d-id.com/v1/index.js"
-              data-name="did-agent"
-              data-mode="fabio"
-              data-client-key="Z29vZ2xlLW9hdXRoMnwxMTE4ODc5MTA4Mjc1NTA5ODc2MjE6V3VsZkE5c0JpRHRhenlDVHctdDFh"
-              data-agent-id="agt_IFidIPzC"
-              data-monitor="true">
+            <ion-icon id="close-agent-btn" name="close-circle-outline" title="Cerrar agente"></ion-icon>
+            <!-- Chat D-ID embebido -->
+            <script>
+              class DIDChat {
+                constructor(containerId) {
+                  this.container = document.getElementById(containerId);
+                  this.chatUrl =
+                    "https://studio.d-id.com/agents/share?id=agt_xQ9DjGPl&utm_source=copy&key=WVhWMGFEQjhOamRsT0RObVpqQTVZbU5tTXpSa1pEVmlZbVpsWVRNM09uQm5aR2xhYVdOSk1rdHFlVlpyYmpCdFRHaFRVQT09";
+                  this.init();
+                }
+                init() {
+                  const wrapper = document.createElement("div");
+                  wrapper.className = "iframe-wrapper";
+                  const iframe = document.createElement("iframe");
+                  iframe.className = "did-chat-iframe fade-in";
+                  iframe.src = this.chatUrl;
+                  iframe.allow = "camera;microphone;clipboard-write";
+                  iframe.title = "D-ID Chat Interface";
+                  wrapper.appendChild(iframe);
+                  this.container.appendChild(wrapper);
+                }
+              }
+              document.addEventListener("DOMContentLoaded", () => {
+                new DIDChat("agent-container");
+              });
             </script>
           </div>
         </div>
@@ -100,31 +127,15 @@
       Tu navegador no soporta el elemento <code>video</code>.
     </video>
 
-    <!-- Botón siempre visible para reproducir vídeo -->
-    <ion-icon
-      id="video-btn"
-      name="videocam-outline"
-      title="Ver vídeo de respaldo">
-    </ion-icon>
+    <!-- Botones siempre visibles -->
+    <ion-icon id="video-btn" name="videocam-outline" title="Ver vídeo de respaldo"></ion-icon>
+    <ion-icon id="refresh-btn" name="refresh-circle-outline" title="Actualizar página"></ion-icon>
 
-    <!-- Botón de refrescar -->
-    <ion-icon
-      id="refresh-btn"
-      name="refresh-circle-outline"
-      title="Actualizar página">
-    </ion-icon>
-
-    <!-- Scripts -->
+    <!-- Scripts externos -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="main.js"></script>
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   </body>
 </html>
 
