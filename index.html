@@ -6,6 +6,27 @@
     <title>Gema</title>
     <link rel="shortcut icon" href="./chat.png" />
     <link rel="stylesheet" href="style.css" />
+
+    <!-- Estilos para el botón de vídeo -->
+    <style>
+      #video-btn {
+        position: fixed;
+        top: 20px;
+        right: 70px;         /* 50px a la izquierda del refresh */
+        font-size: 36px;
+        color: white;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 9999;
+        opacity: 0.6;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      #video-btn:hover {
+        opacity: 1;
+        transform: rotate(20deg);
+      }
+    </style>
   </head>
   <body>
     <div class="overlay first"></div>
@@ -21,7 +42,7 @@
         <div class="home-img">
           <div id="chat-container" class="fade-in"></div>
 
-          <!-- Agente D-ID Embebido (ID actualizado) -->
+          <!-- Agente D-ID Embebido -->
           <script
             type="module"
             src="https://agent.d-id.com/v1/index.js"
@@ -35,7 +56,7 @@
       </div>
     </main>
 
-    <!-- Vídeo de fallback, oculto por defecto -->
+    <!-- Vídeo de fallback -->
     <video
       id="fallback-video"
       style="
@@ -54,25 +75,19 @@
       Tu navegador no soporta el elemento <code>video</code>.
     </video>
 
-    <!-- Botón para ver el vídeo de fallback -->
+    <!-- Botón siempre visible para reproducir vídeo -->
     <ion-icon
       id="video-btn"
-      name="play-circle-outline"
-      title="Ver vídeo de respaldo"
-      style="
-        position: fixed;
-        top: 20px;
-        right: 70px;
-        font-size: 36px;
-        color: white;
-        cursor: pointer;
-        display: none;
-        z-index: 9999;
-      ">
+      name="videocam-outline"
+      title="Ver vídeo de respaldo">
     </ion-icon>
 
-    <!-- ✅ Botón de refrescar -->
-    <ion-icon id="refresh-btn" name="refresh-circle-outline" title="Actualizar página"></ion-icon>
+    <!-- Botón de refrescar -->
+    <ion-icon
+      id="refresh-btn"
+      name="refresh-circle-outline"
+      title="Actualizar página">
+    </ion-icon>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -87,4 +102,3 @@
     ></script>
   </body>
 </html>
-
