@@ -35,6 +35,42 @@
       </div>
     </main>
 
+    <!-- Vídeo de fallback, oculto por defecto -->
+    <video
+      id="fallback-video"
+      style="
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 600px;
+        z-index: 9999;
+      "
+      controls
+    >
+      <source src="videos/fallback.mp4" type="video/mp4" />
+      Tu navegador no soporta el elemento <code>video</code>.
+    </video>
+
+    <!-- Botón para ver el vídeo de fallback -->
+    <ion-icon
+      id="video-btn"
+      name="play-circle-outline"
+      title="Ver vídeo de respaldo"
+      style="
+        position: fixed;
+        top: 20px;
+        right: 70px;
+        font-size: 36px;
+        color: white;
+        cursor: pointer;
+        display: none;
+        z-index: 9999;
+      ">
+    </ion-icon>
+
     <!-- ✅ Botón de refrescar -->
     <ion-icon id="refresh-btn" name="refresh-circle-outline" title="Actualizar página"></ion-icon>
 
