@@ -12,7 +12,7 @@
       #video-btn {
         position: fixed;
         top: 20px;
-        right: 70px;         /* 50px a la izquierda del refresh */
+        right: 70px;
         font-size: 36px;
         color: white;
         background: transparent;
@@ -26,54 +26,9 @@
         opacity: 1;
         transform: rotate(20deg);
       }
-      /* Modal PIN */
-      #pin-modal {
-        display: none;
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(0,0,0,0.8);
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-      }
-      #pin-modal .modal-content {
-        background: #fff;
-        padding: 2rem;
-        border-radius: 8px;
-        text-align: center;
-        width: 300px;
-      }
-      #pin-modal input {
-        font-size: 1.5rem;
-        text-align: center;
-        width: 100%;
-        padding: 0.5rem;
-        margin: 1rem 0;
-      }
-      #pin-modal button {
-        padding: 0.5rem 1.5rem;
-        font-size: 1rem;
-        cursor: pointer;
-      }
-      #pin-error {
-        color: red;
-        display: none;
-        margin-top: 0.5rem;
-      }
     </style>
   </head>
   <body>
-    <!-- PIN Modal -->
-    <div id="pin-modal">
-      <div class="modal-content">
-        <h2>Introduce tu PIN</h2>
-        <input id="pin-input" type="password" maxlength="4" />
-        <br />
-        <button id="pin-submit">Confirmar</button>
-        <p id="pin-error">PIN incorrecto</p>
-      </div>
-    </div>
-
     <div class="overlay first"></div>
     <div class="overlay second"></div>
     <div class="overlay third"></div>
