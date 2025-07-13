@@ -111,15 +111,13 @@ function iniciarRefresco() {
       cancelRefresh = true;
       message.style.display = "none";
       clearTimeout(refreshTimeout);
-      document.removeEventListener("click", cancelAction);
-      document.removeEventListener("touchstart", cancelAction);
+      document.removeEventListener('click', cancelAction);
+      document.removeEventListener('touchstart', cancelAction);
       setTimeout(startRefreshSequence, 300000);
     }
-    document.addEventListener("click", cancelAction);
-    document.addEventListener("touchstart", cancelAction);
-    refreshTimeout = setTimeout(() => {
-      if (!cancelRefresh) location.reload();
-    }, 5000);
+    document.addEventListener('click', cancelAction);
+    document.addEventListener('touchstart', cancelAction);
+    refreshTimeout = setTimeout(() => { if (!cancelRefresh) location.reload(); }, 5000);
   }
   setTimeout(startRefreshSequence, 300000);
 }
@@ -136,4 +134,13 @@ window.addEventListener("DOMContentLoaded", () => {
     fallbackVideo.style.display = "block";
     fallbackVideo.play();
   });
+
+  // ----------------- CERRAR AGENTE EMBEBIDO -----------------
+  const closeBtn = document.getElementById("close-agent-btn");
+  const agentContainer = document.getElementById("agent-container");
+  if (closeBtn && agentContainer) {
+    closeBtn.addEventListener("click", () => {
+      agentContainer.style.display = "none";
+    });
+  }
 });
