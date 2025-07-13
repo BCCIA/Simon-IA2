@@ -26,6 +26,21 @@
         opacity: 1;
         transform: rotate(20deg);
       }
+      /* Botón de cerrar agente */
+      #close-agent-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 2rem;
+        color: white;
+        cursor: pointer;
+        z-index: 1001;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+      }
+      #close-agent-btn:hover {
+        opacity: 1;
+      }
     </style>
   </head>
   <body>
@@ -39,19 +54,29 @@
           <span class="home-pressent anime-text">Mi nombre es</span>
           <h1 class="home-title anime-text">Simón.</h1>
         </div>
-        <div class="home-img">
+        <div class="home-img" style="position: relative;">
           <div id="chat-container" class="fade-in"></div>
 
-          <!-- Agente D-ID Embebido -->
-          <script
-            type="module"
-            src="https://agent.d-id.com/v1/index.js"
-            data-name="did-agent"
-            data-mode="fabio"
-            data-client-key="Z29vZ2xlLW9hdXRoMnwxMTE4ODc5MTA4Mjc1NTA5ODc2MjE6V3VsZkE5c0JpRHRhenlDVHctdDFh"
-            data-agent-id="agt_IFidIPzC"
-            data-monitor="true">
-          </script>
+          <!-- Contenedor del agente con botón de cerrar -->
+          <div id="agent-container" style="position: relative;">
+            <!-- Botón de cerrar -->
+            <ion-icon
+              id="close-agent-btn"
+              name="close-circle-outline"
+              title="Cerrar agente">
+            </ion-icon>
+
+            <!-- Agente D-ID Embebido -->
+            <script
+              type="module"
+              src="https://agent.d-id.com/v1/index.js"
+              data-name="did-agent"
+              data-mode="fabio"
+              data-client-key="Z29vZ2xlLW9hdXRoMnwxMTE4ODc5MTA4Mjc1NTA5ODc2MjE6V3VsZkE5c0JpRHRhenlDVHctdDFh"
+              data-agent-id="agt_IFidIPzC"
+              data-monitor="true">
+            </script>
+          </div>
         </div>
       </div>
     </main>
@@ -102,3 +127,4 @@
     ></script>
   </body>
 </html>
+
