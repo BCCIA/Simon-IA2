@@ -121,60 +121,7 @@ gsap.from(".home-social", {
 });
 
 // ----------------- REFRESCO AUTOMÁTICO CADA 5 MINUTOS -----------------
-function iniciarRefresco() {
-  let refreshTimeout,
-    cancelRefresh = false;
-  let message = document.getElementById("refresh-message");
-  if (!message) {
-    message = document.createElement("div");
-    message.id = "refresh-message";
-    message.innerText = "Refrescando...";
-    Object.assign(message.style, {
-      position: "fixed",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-      backgroundColor: "rgba(0,0,0,0.8)",
-      color: "#fff",
-      padding: "20px 40px",
-      borderRadius: "10px",
-      fontSize: "24px",
-      zIndex: "9999",
-      display: "none",
-    });
-    document.body.appendChild(message);
-  }
 
-  function startRefreshSequence() {
-    cancelRefresh = false;
-    message.style.display = "block";
-
-    function cancelAction() {
-      cancelRefresh = true;
-      message.style.display = "none";
-      clearTimeout(refreshTimeout);
-      document.removeEventListener("click", cancelAction);
-      document.removeEventListener("touchstart", cancelAction);
-      setTimeout(startRefreshSequence, 300000); // 5 minutos
-    }
-
-    document.addEventListener("click", cancelAction);
-    document.addEventListener("touchstart", cancelAction);
-
-    refreshTimeout = setTimeout(() => {
-      if (!cancelRefresh) location.reload();
-    }, 5000);
-  }
-
-  setTimeout(startRefreshSequence, 300000);
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-  const refreshBtn = document.getElementById("refresh-btn");
-  if (refreshBtn)
-    refreshBtn.addEventListener("click", () => location.reload());
-  iniciarRefresco();
-});
 
 // ----------------- FALLBACK VÍDEO CON OVERLAY Y CIERRE -----------------
 window.addEventListener("DOMContentLoaded", () => {
