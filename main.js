@@ -1,4 +1,4 @@
-// ----------------- SEGURIDAD: PROTECCIÓN POR PIN -----------------
+// -------------------- SEGURIDAD: PROTECCIÓN POR PIN --------------------
 const PIN_CORRECTO = "5703";
 
 function accesoPermitido() {
@@ -7,12 +7,12 @@ function accesoPermitido() {
 
 function solicitarPin() {
   const pinIngresado = prompt("Por favor, introduce el PIN de acceso:");
+
   if (pinIngresado === PIN_CORRECTO) {
     localStorage.setItem("pinAccesoAutorizado", "true");
   } else {
     alert("PIN incorrecto. No tienes permiso para acceder.");
-    document.body.innerHTML =
-      "<h1 style='text-align:center; padding-top:20%; font-family:sans-serif;'>Acceso denegado</h1>";
+    document.body.innerHTML = "<h1 style='text-align:center; padding-top:20%; font-family:sans-serif;'>Acceso denegado</h1>";
     throw new Error("PIN incorrecto - ejecución detenida");
   }
 }
@@ -21,9 +21,7 @@ if (!accesoPermitido()) {
   solicitarPin();
 }
 
-// ----------------- SEGURIDAD Y NAVEGACIÓN -----------------
-
-// Deshabilitar clic derecho
+// -------------------- SEGURIDAD --------------------
 document.addEventListener("contextmenu", (e) => e.preventDefault());
 
 function ctrlShiftKey(e, keyCode) {
@@ -32,62 +30,89 @@ function ctrlShiftKey(e, keyCode) {
 
 document.onkeydown = (e) => {
   if (
-    e.keyCode === 123 || // F12
-    ctrlShiftKey(e, "I") || // Ctrl+Shift+I
-    ctrlShiftKey(e, "J") || // Ctrl+Shift+J
-    ctrlShiftKey(e, "C") || // Ctrl+Shift+C
-    (e.ctrlKey && e.keyCode === "U".charCodeAt(0)) // Ctrl+U
+    event.keyCode === 123 ||
+    ctrlShiftKey(e, "I") ||
+    ctrlShiftKey(e, "J") ||
+    ctrlShiftKey(e, "C") ||
+    (e.ctrlKey && e.keyCode === "U".charCodeAt(0))
   )
     return false;
 };
 
-// ----------------- MENÚ (si aplica) -----------------
+// -------------------- MENÚ --------------------
 const showMenu = (toggleId, navId) => {
   const toggle = document.getElementById(toggleId),
     nav = document.getElementById(navId);
 
-  if (toggle && nav)
-    toggle.addEventListener("click", () => nav.classList.toggle("show"));
+  if (toggle && nav) {
+    toggle.addEventListener("click", () => {
+      nav.classList.toggle("show");
+    });
+  }
 };
 
 showMenu("nav-toggle", "nav-menu");
 
-// ----------------- CHAT D-ID -----------------
+// -------------------- CHAT D-ID --------------------
 class DIDChat {
   constructor(containerId) {
     this.container = document.getElementById(containerId);
     this.chatUrl =
-      "https://studio.d-id.com/agents/share?id=agt_IFidIPzC&utm_source=copy&key=WjI5dloyeGxMVzloZFhSb01ud3hNVEU0T0RjNU1UQTRNamMxTlRBNU9EYzJNakU2VjNWc1prRTVjMEpwUkhSaGVubERWSGN0ZERGaA==";
+      "https://studio.d-id.com/agents/share?id=v2_agt_wGjGVMka&utm_source=copy&key=WjI5dloyeGxMVzloZFhSb01ud3hNRGszTnpjek1EVTBPREUxTVRZM05qRTNOalE2ZFRFelptbGFjVzUzWm00ellqUk5SRUZyVVhjeA==";
+    this.iframe = null;
     this.init();
   }
 
   init() {
+    this.createIframe();
+  }
+
+  createIframe() {
     const wrapper = document.createElement("div");
     wrapper.className = "iframe-wrapper";
-    const iframe = document.createElement("iframe");
-    iframe.className = "did-chat-iframe fade-in";
-    iframe.src = this.chatUrl;
-    iframe.allow = "camera;microphone;clipboard-write";
-    wrapper.appendChild(iframe);
+    this.iframe = document.createElement("iframe");
+    this.iframe.className = "did-chat-iframe fade-in";
+    this.iframe.src = this.chatUrl;
+    this.iframe.allow = "camera;microphone;clipboard-write";
+    this.iframe.title = "D-ID Chat Interface";
+
+    wrapper.appendChild(this.iframe);
     this.container.appendChild(wrapper);
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  new DIDChat("chat-container");
+  const chat = new DIDChat("chat-container");
 });
 
-// ----------------- GSAP ANIMACIONES -----------------
-gsap.to(".first", 1.5, { delay: 0.5, top: "-100%", ease: Expo.easeInOut });
-gsap.to(".second", 1.5, { delay: 0.7, top: "-100%", ease: Expo.easeInOut });
-gsap.to(".third", 1.5, { delay: 0.9, top: "-100%", ease: Expo.easeInOut });
+// -------------------- GSAP ANIMACIONES --------------------
+gsap.to(".first", 1.5, {
+  delay: 0.5,
+  top: "-100%",
+  ease: Expo.easeInOut,
+});
+
+gsap.to(".second", 1.5, {
+  delay: 0.7,
+  top: "-100%",
+  ease: Expo.easeInOut,
+});
+
+gsap.to(".third", 1.5, {
+  delay: 0.9,
+  top: "-100%",
+  ease: Expo.easeInOut,
+});
+
 gsap.from(".home-img", { opacity: 0, duration: 2, delay: 2, x: 60 });
+
 gsap.from(".home-information", {
   opacity: 0,
   duration: 3,
   delay: 2.3,
   y: 25,
 });
+
 gsap.from(".anime-text", {
   opacity: 0,
   duration: 3,
@@ -96,6 +121,7 @@ gsap.from(".anime-text", {
   ease: "expo.out",
   stagger: 0.3,
 });
+
 gsap.from(".nav-logo", {
   opacity: 0,
   duration: 3,
@@ -103,6 +129,7 @@ gsap.from(".nav-logo", {
   y: 25,
   ease: "expo.out",
 });
+
 gsap.from(".nav-item", {
   opacity: 0,
   duration: 3,
@@ -111,6 +138,7 @@ gsap.from(".nav-item", {
   ease: "expo.out",
   stagger: 0.2,
 });
+
 gsap.from(".home-social", {
   opacity: 0,
   duration: 3,
@@ -120,37 +148,78 @@ gsap.from(".home-social", {
   stagger: 0.2,
 });
 
-// ----------------- REFRESCO AUTOMÁTICO CADA 5 MINUTOS -----------------
+// -------------------- REFRESCO AUTOMÁTICO --------------------
+function iniciarRefresco() {
+  let refreshTimeout;
+  let cancelRefresh = false;
 
+  let message = document.getElementById("refresh-message");
+  if (!message) {
+    message = document.createElement("div");
+    message.id = "refresh-message";
+    message.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div class="spinner" style="border: 4px solid #f3f3f3; border-top: 4px solid #fff; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite;"></div>
+        <span>Refrescando...</span>
+      </div>
+    `;
+    message.style.position = "fixed";
+    message.style.top = "50%";
+    message.style.left = "50%";
+    message.style.transform = "translate(-50%, -50%)";
+    message.style.backgroundColor = "rgba(0,0,0,0.85)";
+    message.style.color = "#fff";
+    message.style.padding = "20px 40px";
+    message.style.borderRadius = "10px";
+    message.style.fontSize = "22px";
+    message.style.zIndex = "9999";
+    message.style.display = "none";
+    document.body.appendChild(message);
 
-// ----------------- FALLBACK VÍDEO CON OVERLAY Y CIERRE -----------------
-window.addEventListener("DOMContentLoaded", () => {
-  const videoBtn = document.getElementById("video-btn");
-  const closeVideoBtn = document.getElementById("close-video-btn");
-  const videoOverlay = document.getElementById("video-overlay");
-  const fallbackVideo = document.getElementById("fallback-video");
-
-  if (videoBtn && closeVideoBtn && videoOverlay && fallbackVideo) {
-    videoBtn.addEventListener("click", () => {
-      videoOverlay.style.display = "flex";
-      fallbackVideo.currentTime = 0;
-      fallbackVideo.play().catch((err) => {
-        console.warn("No se pudo reproducir el video:", err);
-      });
-    });
-
-    closeVideoBtn.addEventListener("click", () => {
-      fallbackVideo.pause();
-      fallbackVideo.currentTime = 0;
-      videoOverlay.style.display = "none";
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && videoOverlay.style.display === "flex") {
-        fallbackVideo.pause();
-        fallbackVideo.currentTime = 0;
-        videoOverlay.style.display = "none";
+    const style = document.createElement("style");
+    style.innerHTML = `
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function startRefreshSequence() {
+    cancelRefresh = false;
+    message.style.display = "block";
+
+    function cancelAction() {
+      cancelRefresh = true;
+      message.style.display = "none";
+      clearTimeout(refreshTimeout);
+      document.removeEventListener("click", cancelAction);
+      document.removeEventListener("touchstart", cancelAction);
+      setTimeout(startRefreshSequence, 3 * 60 * 1000);
+    }
+
+    document.addEventListener("click", cancelAction);
+    document.addEventListener("touchstart", cancelAction);
+
+    refreshTimeout = setTimeout(() => {
+      if (!cancelRefresh) {
+        location.reload();
+      }
+    }, 5000);
+  }
+
+  setTimeout(startRefreshSequence, 3 * 60 * 1000);
+}
+
+window.addEventListener("DOMContentLoaded", iniciarRefresco);
+
+window.addEventListener("DOMContentLoaded", () => {
+  const refreshBtn = document.getElementById("refresh-btn");
+
+  if (refreshBtn) {
+    refreshBtn.addEventListener("click", () => {
+      location.reload();
     });
   }
 });
