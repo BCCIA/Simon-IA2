@@ -6,60 +6,11 @@
     <title>Simón</title>
     <link rel="shortcut icon" href="./chat.png" />
     <link rel="stylesheet" href="style.css" />
-
-    <!-- Estilos personalizados para botones y video -->
-    <style>
-      #video-btn {
-        position: fixed;
-        top: 20px;
-        right: 70px;
-        font-size: 36px;
-        color: white;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        z-index: 9999;
-        opacity: 0.6;
-        transition: opacity 0.3s ease, transform 0.3s ease;
-      }
-      #video-btn:hover {
-        opacity: 1;
-        transform: rotate(20deg);
-      }
-
-      #video-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.9);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        flex-direction: column;
-      }
-
-      #fallback-video {
-        width: 90%;
-        max-width: 1000px;
-        height: auto;
-        border-radius: 8px;
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-      }
-
-    
-    </style>
   </head>
-
   <body>
-    <!-- Overlays iniciales -->
     <div class="overlay first"></div>
     <div class="overlay second"></div>
     <div class="overlay third"></div>
-
-    <!-- Contenido principal -->
     <main class="l-main bd-grid">
       <div class="home">
         <div class="home-information">
@@ -68,22 +19,9 @@
         </div>
         <div class="home-img">
           <div id="chat-container" class="fade-in"></div>
-
-          <!-- Agente D-ID Embebido -->
-          
-
-    <!-- Overlay de video de fallback -->
-    <div id="video-overlay">
-      <button id="close-video-btn">✖</button>
-      <video id="fallback-video" src="videos/fallback.mp4" controls loop></video>
-    </div>
-
-    <!-- Botón de vídeo de respaldo -->
-    <ion-icon
-      id="video-btn"
-      name="videocam-outline"
-      title="Ver vídeo de respaldo"
-    ></ion-icon>
+        </div>
+      </div>
+    </main>
 
     <!-- ✅ Botón de refrescar (antes de los scripts) -->
     <ion-icon id="refresh-btn" name="refresh-circle-outline" title="Actualizar página"></ion-icon>
