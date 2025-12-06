@@ -82,7 +82,7 @@ class DIDChat {
     this.container = document.getElementById(containerId);
     // ENLACE D-ID (CONFIGURABLE)
     this.chatUrl =
-      "https://studio.d-id.com/agents/share?id=v2_agt_5Sn6hzpY&utm_source=copy&key=WVhWMGFEQjhOamRsTlRsaVpXRXdaV000WkRJMlkyVTRZVFppT0Rnd09rSmhVMVphYTFCNFFuaDFlV3hPVDE5amJFaFRjQT09";
+      "https://studio.d-id.com/agents/share?id=v2_agt_7pHoxX4Y&utm_source=copy&key=WjI5dloyeGxMVzloZFhSb01ud3hNVEU0T0RjNU1UQTRNamMxTlRBNU9EYzJNakU2VjNWc1prRTVjMEpwUkhSaGVubERWSGN0ZERGaA==";
     this.iframe = null;
     this.init();
   }
