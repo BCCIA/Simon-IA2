@@ -17,7 +17,6 @@ function verificarEstadoBloqueo() {
 }
 
 function solicitarPin() {
-  // Timeout para asegurar renderizado suave
   setTimeout(() => {
     const pinIngresado = prompt("🔒 STAND PROTEGIDO\nPor favor, introduce el PIN de acceso:");
 
@@ -33,12 +32,10 @@ function solicitarPin() {
 function desbloquearPantalla() {
   const lockScreen = document.getElementById("lock-overlay");
   if (lockScreen) {
-    // Eliminamos el div del HTML para que el clic pase al iframe de abajo
     lockScreen.remove(); 
   }
 }
 
-// Iniciar verificación al cargar
 document.addEventListener("DOMContentLoaded", verificarEstadoBloqueo);
 
 // ----------------- SEGURIDAD EXTRA -----------------
@@ -80,7 +77,6 @@ showMenu("nav-toggle", "nav-menu");
 class DIDChat {
   constructor(containerId) {
     this.container = document.getElementById(containerId);
-    // ENLACE D-ID (CONFIGURABLE)
     this.chatUrl =
       "https://studio.d-id.com/agents/share?id=agt_IFidIPzC&utm_source=copy&key=WjI5dloyeGxMVzloZFhSb01ud3hNVEU0T0RjNU1UQTRNamMxTlRBNU9EYzJNakU2VjNWc1prRTVjMEpwUkhSaGVubERWSGN0ZERGaA==";
     this.iframe = null;
@@ -229,11 +225,36 @@ function iniciarRefresco() {
 
 iniciarRefresco();
 
-window.addEventListener("DOMContentLoaded", () => {
-  const refreshBtn = document.getElementById("refresh-btn");
+// ----------------- CONTROL DE BOTONES (LOGICA MODIFICADA) -----------------
 
+document.addEventListener("DOMContentLoaded", () => {
+  const refreshBtn = document.getElementById("refresh-btn");
+  const lockBtn = document.getElementById("lock-btn");
+
+  // BOTÓN DE CANDADO (Siempre bloquea y recarga)
+  if (lockBtn) {
+    lockBtn.addEventListener("click", () => {
+      localStorage.removeItem("pinAccesoAutorizado");
+      location.reload();
+    });
+  }
+
+  // BOTÓN DE REFRESCO (Lógica condicional)
   if (refreshBtn) {
     refreshBtn.addEventListener("click", () => {
+      // Guardamos la respuesta del usuario en una variable
+      // true = Aceptar, false = Cancelar
+      const cerrarSesion = confirm("¿Deseas limpiar caché y recargar? Esto también bloqueará la sesión.\n\n[ACEPTAR] = Bloquear y Recargar\n[CANCELAR] = Solo Recargar (Mantener sesión)");
+
+      if (cerrarSesion) {
+        // Opción ACEPTAR: Limpiamos storage (se pierde el PIN guardado)
+        localStorage.clear();
+        sessionStorage.clear();
+      } 
+      // Si el usuario da CANCELAR, saltamos el bloque 'if' anterior
+      // y pasamos directamente a la recarga, manteniendo el storage intacto.
+
+      // Recarga forzada (Cache Buster)
       const url = new URL(window.location.href);
       url.searchParams.set("r", Date.now().toString()); 
       window.location.href = url.toString(); 
