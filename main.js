@@ -78,7 +78,7 @@ class DIDChat {
   constructor(containerId) {
     this.container = document.getElementById(containerId);
     this.chatUrl =
-      "https://studio.d-id.com/agents/share?id=v2_agt_5Sn6hzpY&utm_source=copy&key=WVhWMGFEQjhOamRsTlRsaVpXRXdaV000WkRJMlkyVTRZVFppT0Rnd09rSmhVMVphYTFCNFFuaDFlV3hPVDE5amJFaFRjQT09";
+      "https://studio.d-id.com/agents/share?id=v2_agt_UV_zgL-k&utm_source=copy&key=WjI5dloyeGxMVzloZFhSb01ud3hNREV5TXpJMk9UYzNORFUxTWpZek1EWTVNamc2VW01Uk56aGpNVFExWDFOZldHaFJWbU0xTm1WSQ==";
     this.iframe = null;
     this.init();
   }
